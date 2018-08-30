@@ -554,8 +554,8 @@ public abstract class GenModel implements IGenModel, IGeneratedModel, Serializab
     assert(to.length == _nums + _catOffsets[_cats]);
     Arrays.fill(to, 0f);
     for (int i = 0; i < _cats; ++i)
-
-      to[cats[i]] = 1f; // one-hot encode categoricals
+      if (cats[i] >= 0)
+        to[cats[i]] = 1f; // one-hot encode categoricals
     for (int i = 0; i < _nums; ++i)
       to[_catOffsets[_cats] + i] = Double.isNaN(nums[i]) ? (replaceMissingWithZero ? 0 : Float.NaN) : (float)nums[i];
   }
@@ -566,10 +566,10 @@ public abstract class GenModel implements IGenModel, IGeneratedModel, Serializab
     setCats(from, nums, cats, _cats, _catOffsets, _normMul, _normSub, useAllFactorLevels);
 
     assert(to.length == _nums + _catOffsets[_cats]);
-    Arrays.fill(to, 0f);
+    Arrays.fill(to, 0d);
     for (int i = 0; i < _cats; ++i)
       if (cats[i] >= 0)
-        to[cats[i]] = 1f; // one-hot encode categoricals
+        to[cats[i]] = 1d; // one-hot encode categoricals
     for (int i = 0; i < _nums; ++i)
       to[_catOffsets[_cats] + i] = Double.isNaN(nums[i]) ? (replaceMissingWithZero ? 0 : Double.NaN) : nums[i];
   }

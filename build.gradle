@@ -208,6 +208,9 @@ subprojects {
     version = rootProject.version
 
     repositories {
+        maven {
+            url "http://nexus:8081/nexus/repository" // FIXME
+        }
         mavenCentral()
         jcenter()
         maven {
